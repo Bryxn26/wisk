@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gemaakt voor een mooie dame</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f1ef;
+  --white:#ffffff;
+  --red:#c0112e;
+  --red-h:#a00e26;
+  --red-lo:rgba(192,17,46,.06);
+  --red-b:rgba(192,17,46,.18);
+  --text:#18100f;
+  --muted:#7a6860;
+  --faint:#b5a098;
+  --border:#e6dbd7;
+  --border2:#d0c5c0;
+  --easy:#1a6b3a; --easy-bg:rgba(26,107,58,.07); --easy-b:rgba(26,107,58,.22);
+  --med:#7c5200;  --med-bg:rgba(124,82,0,.07);   --med-b:rgba(124,82,0,.22);
+  --r:10px; --rs:6px; --rp:22px;
+  --hh:88px; --sw:212px;
+  --ff:'Inter',-apple-system,'Segoe UI',sans-serif;
+  --fs:'Playfair Display',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--ff);font-size:15px;line-height:1.6;min-height:100vh}
+
+/* ── HEADER ── */
+.hdr{
+  position:sticky;top:0;z-index:100;
+  height:var(--hh);
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;
+  padding:0 1.75rem;
+  gap:1.5rem;
+}
+.hdr-title-block{flex:1;min-width:0}
+.hdr-romantic{
+  font-family:var(--fs);
+  font-style:italic;
+  font-weight:400;
+  font-size:30px;
+  color:var(--text);
+  line-height:1.15;
+  letter-spacing:-.02em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  cursor:default;
+  user-select:none;
+}
+.hdr-romantic .rdot{
+  display:inline-block;width:7px;height:7px;
+  background:var(--red);border-radius:50%;
+  margin-left:7px;vertical-align:middle;margin-bottom:4px;
+  transition:transform .2s;
+}
+.hdr-romantic:hover .rdot{transform:scale(1.4)}
+.hdr-sub{font-size:10px;color:var(--faint);margin-top:4px;letter-spacing:.06em;text-transform:uppercase}
+.hdr-stats{display:flex;gap:1.75rem;flex-shrink:0}
+.hs{text-align:right}
+.hs-n{font-size:22px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.hs-l{font-size:10px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+
+/* ── LAYOUT ── */
+.layout{display:flex;max-width:1180px;margin:0 auto}
+
+/* ── SIDEBAR ── */
+.sb{
+  width:var(--sw);flex-shrink:0;
+  position:sticky;top:var(--hh);
+  height:calc(100vh - var(--hh));
+  overflow-y:auto;padding:1.25rem 0;
+  border-right:1px solid var(--border);
+  background:var(--white);
+}
+.sb-lbl{font-size:9px;font-weight:700;color:var(--faint);letter-spacing:.12em;text-transform:uppercase;padding:.5rem 1.2rem .3rem}
+.sb-item{
+  display:flex;align-items:center;gap:8px;
+  padding:.44rem 1.2rem;font-size:13px;color:var(--muted);
+  text-decoration:none;transition:color .14s,background .14s;
+  border-left:2px solid transparent;
+}
+.sb-item:hover{color:var(--text);background:var(--bg)}
+.sb-item.on{color:var(--red);border-left-color:var(--red);background:var(--red-lo);font-weight:500}
+.sb-prog{margin-left:auto;font-size:11px;color:var(--faint);display:flex;align-items:center;gap:4px}
+.sb-dot{width:5px;height:5px;border-radius:50%;background:var(--easy)}
+.sb-sep{height:1px;background:var(--border);margin:.65rem 1.2rem}
+
+/* ── MAIN ── */
+.main{flex:1;min-width:0;padding:2rem 1.75rem}
+.topic-sec{margin-bottom:3rem;scroll-margin-top:calc(var(--hh) + 14px)}
+.topic-hdr{display:flex;align-items:baseline;gap:10px;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.topic-n{font-size:21px;font-weight:600;letter-spacing:-.02em}
+.topic-c{font-size:12px;color:var(--faint)}
+.diff-pills{display:flex;gap:5px;margin-bottom:1rem;flex-wrap:wrap}
+.dpill{font-size:10px;font-weight:700;padding:2px 9px;border-radius:var(--rp);letter-spacing:.03em}
+.dp-e{background:var(--easy-bg);color:var(--easy);border:1px solid var(--easy-b)}
+.dp-m{background:var(--med-bg);color:var(--med);border:1px solid var(--med-b)}
+.dp-h{background:var(--red-lo);color:var(--red);border:1px solid var(--red-b)}
+
+/* ── CARD ── */
+.ec{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:1.25rem;margin-bottom:10px;
+  transition:border-color .18s,box-shadow .18s;
+}
+.ec:hover{border-color:var(--border2);box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.ec-top{display:flex;align-items:center;gap:7px;margin-bottom:10px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:var(--rp);font-size:11px;font-weight:700;letter-spacing:.03em}
+.b-e{background:var(--easy-bg);color:var(--easy);border:1px solid var(--easy-b)}
+.b-m{background:var(--med-bg);color:var(--med);border:1px solid var(--med-b)}
+.b-h{background:var(--red-lo);color:var(--red);border:1px solid var(--red-b)}
+.b-as{margin-left:auto;border:1px solid transparent}
+.b-as.ok{background:var(--easy-bg);color:var(--easy);border-color:var(--easy-b)}
+.b-as.hu{background:var(--med-bg);color:var(--med);border-color:var(--med-b)}
+.b-as.ms{background:var(--red-lo);color:var(--red);border-color:var(--red-b)}
+.ec-q{font-size:15px;line-height:1.7;margin-bottom:1rem;color:var(--text)}
+
+/* ── HINT ── */
+.hbox{
+  background:#fdfafa;
+  border:1px solid var(--border);
+  border-left:3px solid var(--red);
+  border-radius:0 var(--rs) var(--rs) 0;
+  padding:13px 15px;margin-bottom:11px;
+}
+.hbox-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.hbox-ttl{font-size:10px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.08em}
+.hbox-ctr{font-size:11px;color:var(--faint)}
+.hstep{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.snum{flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:3px}
+.stxt{font-size:13.5px;color:#5c4040;line-height:1.75}
+.stxt code{font-family:'Courier New',monospace;font-size:12.5px;background:#f2ecec;padding:1px 5px;border-radius:3px;color:#3a2020}
+.stxt strong{color:var(--text);font-weight:600}
+.nxt-btn{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:500;color:var(--red);background:transparent;border:1px solid var(--red-b);border-radius:var(--rs);padding:6px 14px;cursor:pointer;margin-top:2px;transition:background .14s;font-family:var(--ff)}
+.nxt-btn:hover{background:var(--red-lo)}
+.all-shown{font-size:12px;color:var(--faint);margin-top:5px;font-style:italic}
+
+/* ── ANSWER ── */
+.abox{background:#f6fbf8;border:1px solid var(--border);border-left:3px solid var(--easy);border-radius:0 var(--rs) var(--rs) 0;padding:13px 15px;margin-bottom:11px}
+.abox-lbl{font-size:10px;font-weight:700;color:var(--easy);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.abox-val{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.abox-expl{font-size:12.5px;color:var(--muted);font-family:'Courier New',monospace;line-height:1.7}
+
+/* ── ACTIONS ── */
+.eact{display:flex;gap:7px;align-items:center;padding-top:11px;border-top:1px solid var(--border);flex-wrap:wrap}
+.abt{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);background:transparent;border:1px solid var(--border2);border-radius:var(--rs);padding:6px 13px;cursor:pointer;transition:all .14s;font-family:var(--ff)}
+.abt:hover{color:var(--text);background:var(--bg);border-color:var(--faint)}
+.abt.h-on{color:var(--red);border-color:var(--red-b);background:var(--red-lo)}
+.abt.a-on{color:var(--easy);border-color:var(--easy-b);background:var(--easy-bg)}
+.rst-btn{margin-left:auto;font-size:12px;color:var(--faint);background:transparent;border:none;cursor:pointer;padding:4px 8px;border-radius:var(--rs);transition:color .14s;font-family:var(--ff)}
+.rst-btn:hover{color:var(--muted)}
+
+/* ── SELF ASSESS ── */
+.sa{margin-top:11px;padding-top:11px;border-top:1px solid var(--border)}
+.sa-lbl{font-size:12px;color:var(--muted);margin-bottom:7px}
+.sa-row{display:flex;gap:6px}
+.sa-btn{flex:1;font-size:12px;text-align:center;padding:7px 4px;border-radius:var(--rs);border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;transition:all .14s;font-family:var(--ff)}
+.sa-btn:hover{background:var(--bg)}
+.sa-btn.ok{background:var(--easy-bg);border-color:var(--easy-b);color:var(--easy)}
+.sa-btn.hu{background:var(--med-bg);border-color:var(--med-b);color:var(--med)}
+.sa-btn.ms{background:var(--red-lo);border-color:var(--red-b);color:var(--red)}
+
+/* ── EASTER EGG ── */
+.egg{position:fixed;inset:0;z-index:999;background:var(--red);display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem;cursor:pointer}
+.egg.show{display:flex;animation:ei .4s ease}
+@keyframes ei{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+.egg-t{font-family:var(--fs);font-style:italic;font-size:52px;color:#fff;line-height:1.15;letter-spacing:-.02em;margin-bottom:1.5rem}
+.egg-b{font-family:var(--fs);font-size:21px;color:rgba(255,255,255,.88);line-height:1.9;max-width:500px}
+.egg-f{font-family:'Courier New',monospace;font-size:14px;color:rgba(255,255,255,.45);margin-top:2rem;line-height:1.9}
+.egg-c{font-size:12px;color:rgba(255,255,255,.3);margin-top:2.5rem;letter-spacing:.04em}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:720px){
+  :root{--hh:74px}
+  .layout{flex-direction:column}
+  .sb{width:100%;height:auto;position:relative;top:0;border-right:none;border-bottom:1px solid var(--border);overflow-x:auto;overflow-y:visible;padding:.5rem;display:flex;gap:4px;white-space:nowrap}
+  .sb-lbl,.sb-sep,.sb-prog{display:none}
+  .sb-item{padding:5px 12px;border-radius:var(--rp);flex-shrink:0;border-left:none}
+  .sb-item.on{border:1px solid var(--red-b)}
+  .main{padding:1rem}
+  .hdr-stats{display:none}
+  .hdr-romantic{font-size:22px}
+  .sa-row{flex-direction:column}
+  .egg-t{font-size:32px}
+  .egg-b{font-size:17px}
+}
+</style>
+</head>
+<body>
+
+<div class="egg" id="egg" onclick="document.getElementById('egg').classList.remove('show')">
+  <div class="egg-t">Voor jou.</div>
+  <div class="egg-b">
+    Je bent het enige evenwicht<br>dat mijn Kz nooit stabiel houdt.
+  </div>
+  <div class="egg-f">
+    Reactie: [jij] + [ik] → stabiel zout + warmte<br>
+    K<sub style="font-size:11px">liefde</sub> = ∞ &nbsp;|&nbsp; pH = perfect &nbsp;|&nbsp; ΔG &lt; 0 (spontaan)
+  </div>
+  <div class="egg-c">klik om te sluiten</div>
+</div>
+
+<header class="hdr">
+  <div class="hdr-title-block">
+    <div class="hdr-romantic" id="romantic-title">
+      Gemaakt voor een mooie dame<span class="rdot"></span>
+    </div>
+    <div class="hdr-sub">Chemie 6BTCT &nbsp;·&nbsp; Zuren &amp; Basen &nbsp;·&nbsp; Examenvoorbereiding</div>
+  </div>
+  <div class="hdr-stats" id="hstats"></div>
+</header>
+
+<div class="layout">
+  <nav class="sb" id="sb"></nav>
+  <main class="main" id="mc"></main>
+</div>
+
+<script>
+/* ── EASTER EGG ── */
+let eggClicks=0;
+document.getElementById('romantic-title').addEventListener('click',()=>{
+  eggClicks++;
+  if(eggClicks>=5){eggClicks=0;document.getElementById('egg').classList.add('show')}
+});
+
+/* ── DATA ── */
+const TOPICS=[
+  {id:'sterk-zuur',  name:'Sterk zuur'},
+  {id:'sterke-base', name:'Sterke base'},
+  {id:'zwak-zuur',   name:'Zwak zuur'},
+  {id:'zwakke-base', name:'Zwakke base'},
+  {id:'zout',        name:'Zoutoplossing'},
+  {id:'buffer',      name:'Buffers'},
+  {id:'titratie',    name:'Titraties'},
+];
+
+const EX=[
+  {id:1,t:'sterk-zuur',d:'makkelijk',
+   q:'Bereken de pH van een 0,01 mol/l HCl-oplossing.',
+   ans:'pH = 2',
+   expl:'pH = −log[HCl]₀ = −log(0,01) = −log(10⁻²) = 2',
+   h:['HCl is een <strong>sterk zuur</strong> (Kz >> 1). Sterke zuren reageren volledig met water:<br><code>HCl + H₂O → Cl⁻ + H₃O⁺</code>',
+      'Omdat de reactie volledig verloopt: [H₃O⁺]<sub>e</sub> = [HCl]₀ = 0,01 mol/l<br>Formule sterk zuur: <code>pH = −log[HZ]₀</code>',
+      'Invullen: <code>pH = −log(0,01) = −log(10⁻²) = <strong>2</strong></code><br>Extra: pOH = 14 − 2 = 12']},
+  {id:2,t:'sterk-zuur',d:'moeilijk',
+   q:'50 ml HCl 0,10 mol/l wordt gemengd met 30 ml NaOH 0,20 mol/l. Bereken de pH van het mengsel.',
+   ans:'pH ≈ 12,1',
+   expl:'NaOH in overschot: 0,001 mol in 80 ml → [NaOH] = 0,0125 mol/l → pH = 14 + log(0,0125) = 12,10',
+   h:['Stap 1 — bereken de hoeveelheden apart:<br><code>n(HCl) = 0,050 × 0,10 = 0,005 mol</code><br><code>n(NaOH) = 0,030 × 0,20 = 0,006 mol</code>',
+      'Stap 2 — neutralisatiereactie: HCl + NaOH → NaCl + H₂O<br>n(NaOH) > n(HCl) → <strong>NaOH in overschot</strong><br><code>n(NaOH)_rest = 0,006 − 0,005 = 0,001 mol</code>',
+      'Stap 3 — concentratie in mengsel:<br><code>V_tot = 80 ml = 0,080 l</code><br><code>[NaOH] = 0,001/0,080 = 0,0125 mol/l</code><br><code>pH = 14 + log(0,0125) = 14 − 1,903 = <strong>12,10 ≈ 12,1</strong></code>']},
+
+  {id:3,t:'sterke-base',d:'makkelijk',
+   q:'Bereken de pH van een 0,001 mol/l KOH-oplossing.',
+   ans:'pH = 11',
+   expl:'pOH = −log(0,001) = 3 → pH = 14 − 3 = 11',
+   h:['KOH is een <strong>sterke base</strong>: <code>KOH → K⁺ + OH⁻</code><br>[OH⁻]<sub>e</sub> = [KOH]₀ = 0,001 mol/l',
+      'Bereken pOH: <code>pOH = −log(0,001) = −log(10⁻³) = 3</code>',
+      'pH + pOH = 14: <code>pH = 14 − 3 = <strong>11</strong></code>']},
+  {id:4,t:'sterke-base',d:'moeilijk',
+   q:'Bereken de pH van een 0,00250 mol/l Ba(OH)₂-oplossing.',
+   ans:'pH ≈ 11,7',
+   expl:'Ba(OH)₂ is 2-waardig: [OH⁻] = 2 × 0,00250 = 0,005 mol/l. pOH = 2,301. pH = 11,699 ≈ 11,7',
+   h:['Ba(OH)₂ is een sterke maar <strong>2-waardige base</strong>:<br><code>Ba(OH)₂ → Ba²⁺ + 2 OH⁻</code>',
+      '[OH⁻]<sub>e</sub> = 2 × 0,00250 = 0,005 mol/l<br>Formule: <code>pH = 14 + log(n × [B]₀)</code> met n = 2',
+      '<code>pOH = −log(0,005) = 2,301</code><br><code>pH = 14 − 2,301 = <strong>11,699 ≈ 11,7</strong></code>']},
+
+  {id:5,t:'zwak-zuur',d:'makkelijk',
+   q:'Bereken de pH van een 0,10 mol/l azijnzuuroplossing (CH₃COOH). (pKz = 4,75)',
+   ans:'pH ≈ 2,9',
+   expl:'pH = ½pKz − ½log[HZ]₀ = ½(4,75) − ½(−1) = 2,375 + 0,5 = 2,875 ≈ 2,9',
+   h:['CH₃COOH is een <strong>zwak zuur</strong> (pKz = 4,75). Reageert onvolledig:<br><code>CH₃COOH + H₂O ⇌ CH₃COO⁻ + H₃O⁺</code><br>Formule: <code>pH = ½pKz − ½log[HZ]₀</code>',
+      'Vul in: <code>pH = ½(4,75) − ½ × log(0,10)</code><br><code>log(0,10) = −1</code>',
+      '<code>pH = 2,375 − ½(−1) = 2,375 + 0,500 = <strong>2,875 ≈ 2,9</strong></code>']},
+  {id:6,t:'zwak-zuur',d:'gemiddeld',
+   q:'Bereken de pH van een 0,10 mol/l HF-oplossing. (pKz(HF) = 3,45)',
+   ans:'pH ≈ 2,2',
+   expl:'pH = ½(3,45) − ½log(0,10) = 1,725 + 0,5 = 2,225 ≈ 2,2',
+   h:['HF is een zwak zuur (pKz = 3,45). Gebruik: <code>pH = ½pKz − ½log[HZ]₀</code>',
+      'Vul in: <code>pH = ½(3,45) − ½ × log(0,10) = 1,725 − ½(−1)</code>',
+      '<code>pH = 1,725 + 0,500 = <strong>2,225 ≈ 2,2</strong></code>']},
+  {id:7,t:'zwak-zuur',d:'moeilijk',
+   q:'Een 0,0200 mol/l HNO₂-oplossing heeft pKz = 3,35. Bereken de pH, [H₃O⁺], [NO₂⁻] en [HNO₂] bij evenwicht.',
+   ans:'pH ≈ 2,5 &nbsp;·&nbsp; [H₃O⁺] ≈ [NO₂⁻] ≈ 3,0×10⁻³ mol/l &nbsp;·&nbsp; [HNO₂] ≈ 0,017 mol/l',
+   expl:'pH = ½(3,35) − ½log(0,020) = 2,525 ≈ 2,5. [H₃O⁺] = 10⁻²˙⁵ ≈ 3,0×10⁻³. [HNO₂] = 0,017 mol/l',
+   h:['Stap 1 — bereken de pH:<br><code>pH = ½pKz − ½log[HZ]₀ = ½(3,35) − ½log(0,020)</code><br>log(0,020) = log(2×10⁻²) = 0,301 − 2 = −1,699',
+      'Stap 2 — pH uitwerken:<br><code>pH = 1,675 − ½(−1,699) = 1,675 + 0,850 = <strong>2,525 ≈ 2,5</strong></code><br><code>[H₃O⁺] = 10⁻²˙⁵²⁵ ≈ <strong>3,0×10⁻³ mol/l</strong></code>',
+      'Stap 3 — evenwichtsconcentraties:<br><code>[NO₂⁻]<sub>e</sub> = [H₃O⁺]<sub>e</sub> = <strong>3,0×10⁻³ mol/l</strong></code><br><code>[HNO₂]<sub>e</sub> = 0,020 − 0,003 = <strong>0,017 mol/l</strong></code>']},
+
+  {id:8,t:'zwakke-base',d:'makkelijk',
+   q:'Bereken de pH van een 0,010 mol/l NH₃-oplossing. (pKb(NH₃) = 4,75)',
+   ans:'pH ≈ 10,6',
+   expl:'pH = 14 − ½pKb + ½log[B]₀ = 14 − 2,375 + ½(−2) = 10,625 ≈ 10,6',
+   h:['NH₃ is een <strong>zwakke base</strong>: <code>NH₃ + H₂O ⇌ NH₄⁺ + OH⁻</code><br>Formule: <code>pH = 14 − ½pKb + ½log[B]₀</code>',
+      'Vul in: <code>pH = 14 − ½(4,75) + ½ × log(0,010)</code><br><code>log(0,010) = −2</code>',
+      '<code>pH = 14 − 2,375 + ½(−2) = 14 − 2,375 − 1,000 = <strong>10,625 ≈ 10,6</strong></code>']},
+  {id:9,t:'zwakke-base',d:'moeilijk',
+   q:'De [OH⁻] van een 0,100 mol/l NH₃-oplossing is 1,34×10⁻³ mol/l bij 25°C. Bereken Kb en de pH.',
+   ans:'Kb ≈ 1,82×10⁻⁵ &nbsp;·&nbsp; pH ≈ 11,13',
+   expl:'Kb = (1,34×10⁻³)² / (0,100 − 0,00134) ≈ 1,82×10⁻⁵. pOH = 2,873. pH = 11,127 ≈ 11,13',
+   h:['Evenwichtsexpressie:<br><code>NH₃ + H₂O ⇌ NH₄⁺ + OH⁻</code><br><code>Kb = [NH₄⁺]<sub>e</sub> × [OH⁻]<sub>e</sub> / [NH₃]<sub>e</sub></code><br>[NH₄⁺]<sub>e</sub> = [OH⁻]<sub>e</sub> = 1,34×10⁻³ mol/l',
+      '[NH₃]<sub>e</sub> = 0,100 − 0,00134 = 0,09866 mol/l<br><code>Kb = (1,34×10⁻³)² / 0,09866 = <strong>1,82×10⁻⁵</strong></code>',
+      '<code>pOH = −log(1,34×10⁻³) = 2,873</code><br><code>pH = 14 − 2,873 = <strong>11,127 ≈ 11,13</strong></code>']},
+
+  {id:10,t:'zout',d:'makkelijk',
+   q:'Bereken de pH van een 0,10 mol/l NaCl-oplossing.',
+   ans:'pH = 7',
+   expl:'Na⁺ en Cl⁻ hebben geen zure of basische eigenschappen → enkel autoprotolyse → pH = 7',
+   h:['Dissociatiereactie: <code>NaCl → Na⁺ + Cl⁻</code>',
+      'Na⁺ = geconj. zuur van sterke base NaOH → geen zure eigenschappen<br>Cl⁻ = geconj. base van sterk zuur HCl → geen basische eigenschappen',
+      'Geen zwakke zuren of basen aanwezig → enkel autoprotolyse van water: <strong>pH = 7</strong>']},
+  {id:11,t:'zout',d:'gemiddeld',
+   q:'Bereken de pH van een 0,10 mol/l NH₄Cl-oplossing. (pKz(NH₄⁺) = 9,25)',
+   ans:'pH ≈ 5,1',
+   expl:'NH₄⁺ is zwak zuur: pH = ½(9,25) − ½log(0,10) = 4,625 + 0,5 = 5,125 ≈ 5,1',
+   h:['Dissociatiereactie: <code>NH₄Cl → NH₄⁺ + Cl⁻</code><br>Cl⁻ heeft geen basische eigenschappen.',
+      'NH₄⁺ is geconj. zuur van zwakke base NH₃ → <strong>zwak zuur</strong> (pKz = 9,25)<br>Gebruik: <code>pH = ½pKz − ½log[HZ]₀</code>',
+      '<code>pH = ½(9,25) − ½log(0,10) = 4,625 + 0,500 = <strong>5,125 ≈ 5,1</strong></code>']},
+  {id:12,t:'zout',d:'moeilijk',
+   q:'Bereken de pH van een 0,10 mol/l natriumacetaat (NaCH₃COO) oplossing. (pKz(CH₃COOH) = 4,75)',
+   ans:'pH ≈ 8,9',
+   expl:'pKb(OAc⁻) = 14 − 4,75 = 9,25. pH = 14 − ½(9,25) + ½log(0,10) = 8,875 ≈ 8,9',
+   h:['<code>NaCH₃COO → Na⁺ + CH₃COO⁻</code><br>Na⁺: geen eigenschappen. CH₃COO⁻ = geconj. base van zwak zuur → <strong>zwakke base!</strong>',
+      'pKb(CH₃COO⁻): <code>pKz + pKb = 14 → pKb = 14 − 4,75 = 9,25</code><br>Formule: <code>pH = 14 − ½pKb + ½log[B]₀</code>',
+      '<code>pH = 14 − ½(9,25) + ½(−1) = 14 − 4,625 − 0,500 = <strong>8,875 ≈ 8,9</strong></code>']},
+
+  {id:13,t:'buffer',d:'makkelijk',
+   q:'Een buffer bevat gelijke concentraties (0,10 mol/l) azijnzuur (HOAc) en natriumacetaat (NaOAc). Bereken de pH. (pKz = 4,75)',
+   ans:'pH = pKz = 4,75',
+   expl:'pH = pKz + log(c_base/c_zuur) = 4,75 + log(1) = 4,75',
+   h:['Buffer = zwak zuur + geconj. base. Gebruik <strong>Henderson-Hasselbalch</strong>:<br><code>pH = pKz + log(c₀,base / c₀,zuur)</code>',
+      'c₀,zuur = 0,10 mol/l ; c₀,base = 0,10 mol/l<br><code>pH = 4,75 + log(0,10/0,10) = 4,75 + log(1)</code>',
+      '<code>log(1) = 0 → pH = 4,75 + 0 = <strong>4,75</strong></code><br>Als c_zuur = c_base, geldt altijd pH = pKz!']},
+  {id:14,t:'buffer',d:'gemiddeld',
+   q:'Bereken de pH van een buffer met 0,20 mol/l azijnzuur (HOAc) en 0,10 mol/l natriumacetaat (NaOAc). (pKz = 4,75)',
+   ans:'pH ≈ 4,45',
+   expl:'pH = 4,75 + log(0,10/0,20) = 4,75 + log(0,5) = 4,75 − 0,301 = 4,449 ≈ 4,45',
+   h:['Gebruik Henderson-Hasselbalch: <code>pH = pKz + log(c₀,base / c₀,zuur)</code>',
+      'c₀,zuur = 0,20 mol/l ; c₀,base = 0,10 mol/l<br><code>pH = 4,75 + log(0,10/0,20) = 4,75 + log(0,5)</code>',
+      '<code>log(0,5) = −0,301 → pH = 4,75 − 0,301 = <strong>4,449 ≈ 4,45</strong></code>']},
+  {id:15,t:'buffer',d:'moeilijk',
+   q:'Hoeveel gram NH₄Cl moet je toevoegen aan 500 ml NH₃ 0,10 mol/l om een buffer met pH = 9,00 te bekomen? (pKz(NH₄⁺) = 9,25 · M(NH₄Cl) = 53,49 g/mol)',
+   ans:'m(NH₄Cl) ≈ 4,76 g',
+   expl:'n(NH₃)=0,050 mol. log(n_b/n_z)=−0,25 → n(NH₄Cl)=0,050/0,5623=0,0889 mol. m=0,0889×53,49=4,76 g',
+   h:['Henderson-Hasselbalch: <code>9,00 = 9,25 + log(n(NH₃)/n(NH₄Cl))</code><br><code>log(n_b/n_z) = 9,00 − 9,25 = −0,25</code>',
+      '<code>n(NH₃)/n(NH₄Cl) = 10⁻⁰˙²⁵ = 0,5623</code><br><code>n(NH₃) = 0,500 × 0,10 = 0,050 mol</code>',
+      '<code>n(NH₄Cl) = 0,050/0,5623 = 0,08893 mol</code><br><code>m = 0,08893 × 53,49 = <strong>4,756 g ≈ 4,76 g</strong></code>']},
+
+  {id:16,t:'titratie',d:'makkelijk',
+   q:'25,0 ml HCl 0,100 mol/l wordt getitreerd met NaOH 0,100 mol/l. (a) Bereken het volume NaOH bij het equivalentiepunt. (b) Wat is de pH bij EP?',
+   ans:'(a) 25,0 ml NaOH &nbsp;&nbsp; (b) pH = 7',
+   expl:'cz × Vz = cb × Vb → Vb = 25,0 ml. Bij EP: NaCl + H₂O → pH = 7',
+   h:['Deel (a) — equivalentieformule:<br><code>cz × Vz = cb × Vb → Vb = (0,100 × 25,0)/0,100 = <strong>25,0 ml</strong></code>',
+      'Deel (b) — bij EP zijn HCl en NaOH volledig weggereageerd:<br><code>HCl + NaOH → NaCl + H₂O</code>',
+      'NaCl → Na⁺ + Cl⁻. Beide ionen hebben geen zure/basische eigenschappen → <strong>pH = 7</strong><br>Sterk + sterk: EP altijd bij pH = 7']},
+  {id:17,t:'titratie',d:'moeilijk',
+   q:'25,0 ml HAc 0,100 mol/l wordt getitreerd met NaOH 0,100 mol/l (pKz(HAc)=4,75). Bereken de pH bij: (a) initieel, (b) na 10,0 ml NaOH, (c) bij het equivalentiepunt, (d) na 30,0 ml NaOH.',
+   ans:'(a) ≈ 2,9 &nbsp;·&nbsp; (b) ≈ 4,57 &nbsp;·&nbsp; (c) ≈ 8,7 &nbsp;·&nbsp; (d) ≈ 12,0',
+   expl:'Vier zones: zwak zuur → buffer → basisch zout bij EP → sterke base overschot',
+   h:['<strong>(a) Initieel</strong> — enkel HAc aanwezig:<br><code>pH = ½(4,75) − ½log(0,100) = 2,375 + 0,5 = <strong>2,875 ≈ 2,9</strong></code>',
+      '<strong>(b) Na 10 ml NaOH</strong> — n(HAc)=0,0025 mol; n(NaOH)=0,001 mol<br>Overschot: n(HAc)=0,0015 mol; n(NaAc)=0,001 mol → <strong>bufferzone</strong><br><code>pH = 4,75 + log(0,001/0,0015) = 4,75 − 0,176 = <strong>4,574 ≈ 4,57</strong></code>',
+      '<strong>(c) Bij EP</strong> — alles is NaAc geworden. [NaAc] = 0,050 mol/l<br>OAc⁻ = zwakke base (pKb = 9,25) → EP <em>boven</em> pH 7!<br><code>pH = 14 − ½(9,25) + ½log(0,050) = <strong>8,724 ≈ 8,7</strong></code>',
+      '<strong>(d) Na 30 ml NaOH</strong> — overschot NaOH = 0,0005 mol in 55 ml<br><code>[NaOH] = 0,0005/0,055 = 9,09×10⁻³ mol/l</code><br><code>pH = 14 + log(9,09×10⁻³) = <strong>11,96 ≈ 12,0</strong></code>']},
+];
+
+/* ── STATE ── */
+const ST={};
+EX.forEach(e=>{ST[e.id]={hs:0,sh:false,sa:false,as:null}});
+
+const DLC={makkelijk:'b-e',gemiddeld:'b-m',moeilijk:'b-h'};
+const DLL={makkelijk:'Makkelijk',gemiddeld:'Gemiddeld',moeilijk:'Moeilijk'};
+const DORD={makkelijk:0,gemiddeld:1,moeilijk:2};
+
+function updStats(){
+  const ok=Object.values(ST).filter(s=>s.as==='ok').length;
+  const ms=Object.values(ST).filter(s=>s.as==='miss').length;
+  const todo=EX.length-Object.values(ST).filter(s=>s.as).length;
+  document.getElementById('hstats').innerHTML=`
+    <div class="hs"><div class="hs-n" style="color:var(--easy)">${ok}</div><div class="hs-l">Snapte ik</div></div>
+    <div class="hs"><div class="hs-n" style="color:var(--red)">${ms}</div><div class="hs-l">Gemist</div></div>
+    <div class="hs"><div class="hs-n">${todo}</div><div class="hs-l">Te doen</div></div>`;
+}
+
+function updSidebar(){
+  document.getElementById('sb').innerHTML=
+    `<div class="sb-lbl">Onderwerpen</div>`+
+    TOPICS.map(tp=>{
+      const exs=EX.filter(e=>e.t===tp.id);
+      const done=exs.filter(e=>ST[e.id].as).length;
+      return`<a class="sb-item" href="#${tp.id}" id="nav-${tp.id}">${tp.name}<span class="sb-prog">${done>0?`<span class="sb-dot" style="opacity:${done/exs.length}"></span>`:''} ${done}/${exs.length}</span></a>`;
+    }).join('')+
+    `<div class="sb-sep"></div><a class="sb-item" href="#" style="font-size:12px" onclick="rstAll(event)">↺ Alles resetten</a>`;
+}
+
+function cardHTML(ex){
+  const cs=ST[ex.id];
+  const asBdg=cs.as?`<span class="badge b-as ${cs.as==='ok'?'ok':cs.as==='hint'?'hu':'ms'}" style="margin-left:auto">${cs.as==='ok'?'✓ Snapte ik':cs.as==='hint'?'~ Hints nodig':'✗ Gemist'}</span>`:'';
+  const hbox=cs.sh?`<div class="hbox">
+    <div class="hbox-hdr"><span class="hbox-ttl">Stappenplan</span><span class="hbox-ctr">${cs.hs}&thinsp;/&thinsp;${ex.h.length}</span></div>
+    ${ex.h.slice(0,cs.hs).map((h,i)=>`<div class="hstep"><div class="snum">${i+1}</div><div class="stxt">${h}</div></div>`).join('')}
+    ${cs.hs<ex.h.length?`<button class="nxt-btn" onclick="nxtH(${ex.id})">Stap ${cs.hs+1} onthullen &rarr;</button>`:`<p class="all-shown">Alle stappen getoond.</p>`}
+  </div>`:'';
+  const abox=cs.sa?`<div class="abox"><div class="abox-lbl">Antwoord</div><div class="abox-val">${ex.ans}</div><div class="abox-expl">${ex.expl}</div></div>`:'';
+  const sabox=cs.sa?`<div class="sa"><p class="sa-lbl">Hoe ging het?</p><div class="sa-row">
+    <button class="sa-btn${cs.as==='ok'?' ok':''}" onclick="setAs(${ex.id},'ok')">✓ Snapte ik</button>
+    <button class="sa-btn${cs.as==='hint'?' hu':''}" onclick="setAs(${ex.id},'hint')">~ Hints nodig</button>
+    <button class="sa-btn${cs.as==='miss'?' ms':''}" onclick="setAs(${ex.id},'miss')">✗ Helemaal mis</button>
+  </div></div>`:'';
+  return`<div class="ec" id="ec${ex.id}">
+    <div class="ec-top"><span class="badge ${DLC[ex.d]}">${DLL[ex.d]}</span>${asBdg}</div>
+    <p class="ec-q">${ex.q}</p>
+    ${hbox}${abox}${sabox}
+    <div class="eact">
+      <button class="abt${cs.sh?' h-on':''}" onclick="togH(${ex.id})">💡 ${cs.sh?'Verberg hints':'Hint'}</button>
+      <button class="abt${cs.sa?' a-on':''}" onclick="togA(${ex.id})">👁 ${cs.sa?'Verberg antwoord':'Toon antwoord'}</button>
+      <button class="rst-btn" onclick="rstCard(${ex.id})">↺ Reset</button>
+    </div>
+  </div>`;
+}
+
+function updMain(){
+  document.getElementById('mc').innerHTML=TOPICS.map(tp=>{
+    const exs=[...EX.filter(e=>e.t===tp.id)].sort((a,b)=>DORD[a.d]-DORD[b.d]);
+    const chips=[...new Set(exs.map(e=>e.d))].map(d=>`<span class="dpill dp-${d[0]}">${DLL[d]}</span>`).join('');
+    return`<section class="topic-sec" id="${tp.id}">
+      <div class="topic-hdr"><h2 class="topic-n">${tp.name}</h2><span class="topic-c">${exs.length} oefeningen</span></div>
+      <div class="diff-pills">${chips}</div>
+      ${exs.map(cardHTML).join('')}
+    </section>`;
+  }).join('');
+}
+
+function updCard(id){
+  const ex=EX.find(e=>e.id===id);
+  const el=document.getElementById(`ec${id}`);
+  if(el){const t=document.createElement('div');t.innerHTML=cardHTML(ex);el.replaceWith(t.firstElementChild)}
+}
+
+function togH(id){const cs=ST[id];cs.sh=!cs.sh;if(cs.sh&&cs.hs===0)cs.hs=1;updCard(id)}
+function nxtH(id){const ex=EX.find(e=>e.id===id);if(ST[id].hs<ex.h.length)ST[id].hs++;updCard(id)}
+function togA(id){ST[id].sa=!ST[id].sa;updCard(id)}
+function setAs(id,v){ST[id].as=v;updCard(id);updStats();updSidebar()}
+function rstCard(id){ST[id]={hs:0,sh:false,sa:false,as:null};updCard(id);updStats();updSidebar()}
+function rstAll(e){e.preventDefault();EX.forEach(ex=>{ST[ex.id]={hs:0,sh:false,sa:false,as:null}});updStats();updSidebar();updMain()}
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      document.querySelectorAll('.sb-item').forEach(s=>s.classList.remove('on'));
+      const n=document.getElementById('nav-'+en.target.id);if(n)n.classList.add('on');
+    }
+  });
+},{rootMargin:'-10% 0px -75% 0px'});
+
+function init(){
+  updStats();updSidebar();updMain();
+  TOPICS.forEach(tp=>{const s=document.getElementById(tp.id);if(s)obs.observe(s)});
+  const f=document.querySelector('.sb-item');if(f)f.classList.add('on');
+}
+init();
+</script>
+</body>
+</html>
